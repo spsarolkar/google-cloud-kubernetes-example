@@ -7,11 +7,11 @@ metadata:
         app: redis
         role: replica
         tier: backend
-     spec: 
-        ports:
-        - port: 6379
-        selector:
-          app: redis
-          role: replica
-          tier: backend
+spec: 
+     ports:
+     - port: 6379
+     selector:
+       app: redis
+       role: replica
+       tier: backend
 
