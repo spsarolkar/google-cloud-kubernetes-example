@@ -15,6 +15,22 @@ spec:
       - name: cowsay-ui
         image: asia.gcr.io/fortune-teller-215315/fortune-teller-ui@sha256:416792ad7f37af47c1f775d6289ab63744df90fe7afd3cd3fcb5c8dc7b96270c 
         imagePullPolicy: IfNotPresent
+        livenessProbe:
+           failureThreshold: 3
+           httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+           initialDelaySeconds: 10
+           periodSeconds: 3
+           successThreshold: 1
+           timeoutSeconds: 5
+        readinessProbe:
+           failureThreshold: 1
+           httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
         ports:
         - containerPort: 8080
           name: http

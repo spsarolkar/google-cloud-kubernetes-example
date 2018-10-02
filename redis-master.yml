@@ -13,13 +13,13 @@ spec:
   template:
     metadata:
       labels:
-        app: redis
-        role: primary
-        tier: backend
+         app: redis
+         role: primary
+         tier: backend
     spec:
       containers:
       - name: redis
-        image: gcr.io/google-containers/redis@sha256:ae4699b8f330d61665125cd381942fc1c57613f2753c5ee6879aff173a8ccb52
+        image: gcr.io/google_containers/redis:e2e
         resources:
           requests:
             cpu: 100m
