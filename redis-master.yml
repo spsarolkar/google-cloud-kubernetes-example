@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis-master
+  namespace: web
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: primary
+        tier: backend
+    spec:
+      containers:
+      - name: redis
+        image: gcr.io/google-containers/redis@sha256:ae4699b8f330d61665125cd381942fc1c57613f2753c5ee6879aff173a8ccb52
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 6379

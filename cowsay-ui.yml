@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cowsay-ui
+spec:
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: cowsay-ui
+        image: asia.gcr.io/fortune-teller-215315/fortune-teller-ui@sha256:416792ad7f37af47c1f775d6289ab63744df90fe7afd3cd3fcb5c8dc7b96270c 
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+           failureThreshold: 3
+           httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+           initialDelaySeconds: 3
+           periodSeconds: 3
+           successThreshold: 1
+           timeoutSeconds: 1
+        readinessProbe:
+           failureThreshold: 1
+           httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+        ports:
+        - containerPort: 8080
+          name: http
+        resources:
+          limits:
+             cpu: 200m
+             memory: 300Mi
+          requests:
+             cpu: 200m
+             memory: 300Mi
+        env:
+          - name: COWSAY_SERVER_NAME
+            value: 'cowsay'
+          - name: COWSAY_SERVER_PORT
+            value: '8000'
+          - name: REDIS_SERVER_NAME
+            value: 'redis-master'
+          - name: REDIS_SERVER_PORT
+            value: '6379'

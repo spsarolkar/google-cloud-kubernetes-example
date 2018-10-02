@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cowsay
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: cowsay
+    spec:
+      containers:
+      - name: cowsay
+        image: asia.gcr.io/fortune-teller-215315/cowsay@sha256:7f8e43af9af53cf59265836814eb21b9260b478f4ae5e4e8244ef322c20307ef
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+           failureThreshold: 3
+           httpGet:
+              path: /
+              port: 8000
+              scheme: HTTP
+           initialDelaySeconds: 3
+           periodSeconds: 3
+           successThreshold: 1
+           timeoutSeconds: 1
+        readinessProbe:
+           failureThreshold: 1
+           httpGet:
+              path: /
+              port: 8000
+              scheme: HTTP
+        ports:
+        - containerPort: 8000
+          name: http
+        resources:
+          limits:
+             cpu: 200m
+             memory: 300Mi
+          requests:
+             cpu: 200m
+             memory: 300Mi
