@@ -3,10 +3,6 @@ kind: Service
 metadata:
   name: redis-master
   namespace: web
-  labels:
-    app: redis
-    role: primary
-    tier: backend
 spec:
   ports:
   - port: 6379
